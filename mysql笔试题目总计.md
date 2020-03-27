@@ -42,3 +42,31 @@ SELECT SN, SD FROM S WHERE S# IN (SELECT S# FROM SC GROUP BY S# HAVING COUNT(DIS
 SELECT TOP 10 * FROM A WHERE ID > (SELECT MAX(ID) FROM (SELECT TOP 30 ID FROM A ORDER BY A) T) order by A
 ```
 
+## 3 数据库设计题
+
+学生表的表结构如下：
+
+Student学生表（学号，姓名， 性别， 年龄， 组织部门）  
+
+Course课程表（编号，课程名称）
+
+Sc选课表（学号， 课程编号和成绩）
+
+1 写一个sql语句，查询选修了‘计算机原理’的学生学号和姓名
+
+```mysql
+SELECT 学号, 姓名 FROM Student WHERE 学号 IN (SELECT 学号 FROM Course, Sc WHERE Sc.学号 = Course.学号 AND Course.课程名称 = '计算机原理')
+```
+
+2 写一个sql语句，查询‘周星驰’同学选修了的课程名称
+
+```mysql
+SELECT cname FROM Course WHERE cno IN (SELECT cno FROM Sc WHERE sno = (SELECT sno From Student where sname='周星驰'))
+```
+
+3 写一个sql语句，查询选修了5门课程的学生学号和姓名
+
+```mysql
+SELECT sno, sname FROM Student WHERE sno in (Select sno from sc group by sno having count(sno) =5)
+```
+
