@@ -1,6 +1,6 @@
 # 题目
-一张表的结构如下
-mysql> select * from student;
+一张表的结构如下  
+mysql> select * from student;  
 +------+---------+--------+
 | name | subject | score |
 +------+---------+--------+
